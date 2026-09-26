@@ -1,5 +1,4 @@
 def tokenize(text):
-    # A deliberately simple first tokenizer. Real LLM tokenizers come later.
     return text.split()
 
 if __name__=="__main__":
