@@ -1,6 +1,4 @@
-# Milestone 18 — Deployment & Hosting
 
-This prepares Lumina-1 for public hosting.
 
 GitHub Pages can host HTML/CSS/JS, but it cannot run the Python AI server.
 A public AI version needs a server/container with Python and enough CPU/RAM.

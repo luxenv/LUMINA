@@ -1,7 +1,9 @@
-# Compatibility-first layout
 __pycache__/
 *.py[cod]
 *.log
 .env
 src/core/model.json
 src/model/neural/weights.json
+src/data/
+*.db
+*.jsonl
