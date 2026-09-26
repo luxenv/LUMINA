@@ -1,10 +1,6 @@
-# Milestone 13 — Offline Knowledge
+# Milestone 14 — Persistent Memory
 
-Introduces local retrieval, the foundation of RAG:
-
-question -> retrieve relevant local passages -> provide context to the model
+Stores explicit memories locally in `memory.json`.
 
 Run:
-    python3 13-offline-knowledge/retrieve.py "what is a transformer"
-
-Replace `knowledge.txt` with your own legally obtained offline text.
+    python3 14-memory/memory.py
