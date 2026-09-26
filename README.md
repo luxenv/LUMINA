@@ -1,6 +1,10 @@
-# Milestone 12 — Tools
+# Milestone 13 — Offline Knowledge
 
-Adds a safe arithmetic calculator and a simple tool router.
+Introduces local retrieval, the foundation of RAG:
+
+question -> retrieve relevant local passages -> provide context to the model
 
 Run:
-    python3 12-tools/tools.py
+    python3 13-offline-knowledge/retrieve.py "what is a transformer"
+
+Replace `knowledge.txt` with your own legally obtained offline text.

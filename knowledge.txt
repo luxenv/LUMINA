@@ -1,0 +1,8 @@
+Photosynthesis is the process by which plants, algae, and some bacteria use
+light energy to convert carbon dioxide and water into chemical energy.
+A neural network is a computational model made from connected parameters.
+A language model estimates probabilities over sequences of tokens.
+A transformer is a neural network architecture that uses attention to mix
+information across a sequence.
+Lumina-1 is a learning project for local language models, memory, tools,
+retrieval, evaluation, and controlled learning.
