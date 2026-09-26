@@ -1,10 +1,16 @@
-# Milestone 16 — Controlled Continual Learning
+# Milestone 17 — Complete Lumina-1 Local System
 
-Feedback is collected into a review dataset. It does NOT immediately change
-the model.
+Combines:
+- the Milestone 9 tiny language model
+- calculator tools
+- local retrieval
+- persistent memory
 
-Pipeline:
-interaction -> feedback -> review -> evaluation -> deliberate retraining
+First train:
+    python3 09-lumina-core/train.py
 
-Run:
-    python3 16-continual-learning/feedback.py
+Then run:
+    python3 17-complete-lumina/app.py
+
+Open:
+    http://127.0.0.1:8000
