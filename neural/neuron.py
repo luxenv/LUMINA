@@ -2,7 +2,7 @@ import math
 
 
 def sigmoid(x):
-    # Squashes any number into a value between 0 and 1.
+
     return 1.0 / (1.0 + math.exp(-x))
 
 
