@@ -1,10 +1,9 @@
-# Milestone 7 — Self-Attention
+# Milestone 8 — Transformer
 
-Self-attention lets each token look at other tokens and decide which ones
-matter to it.
+This milestone combines token embeddings and self-attention into a tiny
+Transformer-style forward pass.
 
-This is a small forward-pass demonstration. It uses only the Python standard
-library and deliberately keeps the numbers tiny.
+It is an educational implementation, not a production Transformer.
 
 Run:
-    python3 07-self-attention/attention.py
+    python3 08-transformer/transformer.py
