@@ -1,12 +1,7 @@
+# Compatibility-first layout
 __pycache__/
 *.py[cod]
-.venv/
-venv/
-.env
-.DS_Store
-.vscode/
-.idea/
 *.log
-models/
-datasets/
-checkpoints/
+.env
+src/core/model.json
+src/model/neural/weights.json
