@@ -1,9 +1,9 @@
-# Milestone 5 — Tokenization
+# Milestone 6 — Embeddings
 
-Neural language models operate on numbers, not raw text.
+An embedding converts a token ID into a small vector of numbers.
 
-This milestone introduces a small character tokenizer and a reversible
-encode/decode process.
+Here we create deterministic random embeddings so the experiment is
+repeatable and easy to inspect.
 
 Run:
-    python3 05-tokenization/tokenizer.py
+    python3 06-embeddings/embeddings.py
