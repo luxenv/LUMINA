@@ -1,9 +1,10 @@
-# Milestone 6 — Embeddings
+# Milestone 7 — Self-Attention
 
-An embedding converts a token ID into a small vector of numbers.
+Self-attention lets each token look at other tokens and decide which ones
+matter to it.
 
-Here we create deterministic random embeddings so the experiment is
-repeatable and easy to inspect.
+This is a small forward-pass demonstration. It uses only the Python standard
+library and deliberately keeps the numbers tiny.
 
 Run:
-    python3 06-embeddings/embeddings.py
+    python3 07-self-attention/attention.py
