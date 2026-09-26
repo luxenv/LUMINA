@@ -1,0 +1,7 @@
+Lumina-1 is a local language experiment.
+Lumina learns from examples of text and predicts what character comes next.
+The project is built step by step so that every part can be understood.
+Language models transform context into probabilities.
+Attention helps a model connect information across a sequence.
+A useful assistant can combine language, memory, knowledge, and tools.
+Lumina is the beginning of a journey from mathematics to an offline AI.
