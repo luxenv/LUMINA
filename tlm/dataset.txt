@@ -1,4 +1,0 @@
-Lumina-1 is a small experiment in language and learning.
-Lumina begins with simple mathematics, neural networks, and text prediction.
-Learning is a journey from numbers to language, from language to knowledge,
-and from knowledge to useful tools.
