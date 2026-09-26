@@ -1,7 +1,10 @@
-# Milestone 15 — Evaluation
+# Milestone 16 — Controlled Continual Learning
 
-Adds repeatable tests. A learning system should be measured instead of
-blindly trusting generated text.
+Feedback is collected into a review dataset. It does NOT immediately change
+the model.
+
+Pipeline:
+interaction -> feedback -> review -> evaluation -> deliberate retraining
 
 Run:
-    python3 15-evaluation/evaluate.py
+    python3 16-continual-learning/feedback.py
