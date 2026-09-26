@@ -1,6 +1,7 @@
-# Milestone 14 — Persistent Memory
+# Milestone 15 — Evaluation
 
-Stores explicit memories locally in `memory.json`.
+Adds repeatable tests. A learning system should be measured instead of
+blindly trusting generated text.
 
 Run:
-    python3 14-memory/memory.py
+    python3 15-evaluation/evaluate.py
