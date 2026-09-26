@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lumina-1</title>
+<style>
+body{margin:0;background:#0b1020;color:#e8ecf7;font:16px system-ui,sans-serif}
+main{max-width:850px;margin:50px auto;padding:24px}
+h1{margin-bottom:4px}
+.sub{color:#9aa7c2}
+#chat{min-height:420px;margin:24px 0;padding:18px;border:1px solid #27304a;border-radius:14px;background:#10172b}
+.msg{padding:12px 14px;margin:10px 0;border-radius:10px;white-space:pre-wrap}
+.user{background:#182441}
+.ai{background:#151d31}
+form{display:flex;gap:10px}
+input{flex:1;padding:14px;border-radius:10px;border:1px solid #34405f;background:#0f1628;color:white}
+button{padding:14px 20px;border:0;border-radius:10px;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<h1>Lumina-1</h1>
+<div class="sub">Local language model — Milestone 11</div>
+<div id="chat"><div class="msg ai">Lumina-1 is running locally.</div></div>
+<form id="form">
+<input id="input" autocomplete="off" placeholder="Talk to Lumina-1...">
+<button>Send</button>
+</form>
+</main>
+<script>
+const chat=document.getElementById("chat");
+const form=document.getElementById("form");
+const input=document.getElementById("input");
+
+function add(text, cls){
+  const div=document.createElement("div");
+  div.className="msg "+cls;
+  div.textContent=text;
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const message=input.value.trim();
+  if(!message)return;
+  add("You: "+message,"user");
+  input.value="";
+  add("Lumina-1 is thinking...","ai");
+  const thinking=chat.lastChild;
+  try{
+    const r=await fetch("/api/chat",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message})
+    });
+    const data=await r.json();
+    thinking.textContent="Lumina-1: "+(data.reply||data.error);
+  }catch(err){
+    thinking.textContent="Connection error: "+err;
+  }
+});
+</script>
+</body>
+</html>

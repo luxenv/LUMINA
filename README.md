@@ -1,11 +1,35 @@
-# Milestone 10 — Local Inference
+# Milestone 11 — Lumina-1 Website AI
 
-Inference means using the trained model without changing its weights.
+This is the first milestone where the website talks to the LOCAL Lumina-1
+model instead of using hard-coded JavaScript responses.
 
-This folder contains a clean inference engine that loads the model produced
-by Milestone 9.
+Architecture:
 
-Run:
-    python3 10-local-inference/infer.py
+Browser
+   |
+   | HTTP POST /api/chat
+   v
+Python local server
+   |
+   v
+Lumina-1 model.json
+   |
+   v
+generated response
+   |
+   v
+Browser
 
-If `../09-lumina-core/model.json` does not exist, train Milestone 9 first.
+No cloud API is required.
+
+1. First train Milestone 9:
+       python3 09-lumina-core/train.py
+
+2. Start the website:
+       python3 11-website-ai/server.py
+
+3. Open:
+       http://127.0.0.1:8000
+
+This model is intentionally tiny and will not behave like ChatGPT. The goal
+is to make the entire pipeline real and understandable.
