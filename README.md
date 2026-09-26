@@ -1,19 +1,11 @@
-# Milestone 9 — Lumina-1 Core
+# Milestone 10 — Local Inference
 
-This milestone assembles a tiny trainable character language model.
+Inference means using the trained model without changing its weights.
 
-To keep it practical on low-end hardware, the core uses a compact feed-forward
-architecture rather than a large Transformer. The previous milestones explain
-the pieces that modern Transformers use.
-
-The model learns:
-    context -> hidden representation -> next-character probabilities
+This folder contains a clean inference engine that loads the model produced
+by Milestone 9.
 
 Run:
-    python3 09-lumina-core/train.py
+    python3 10-local-inference/infer.py
 
-Then:
-    python3 09-lumina-core/generate.py
-
-The generated `model.json` is the local Lumina-1 model used by later
-milestones.
+If `../09-lumina-core/model.json` does not exist, train Milestone 9 first.
