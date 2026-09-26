@@ -1,7 +1,5 @@
 # Lumina-1
 
-Lumina-1 is the first version of a personal Large Language Model (LLM) project inspired by humanity's greatest achievements in knowledge, science, exploration, engineering, and discovery.
-
 ## Milestone 1 — Foundation
 
 This milestone establishes the project and introduces HTML, CSS, JavaScript, Python, and Git/GitHub.
