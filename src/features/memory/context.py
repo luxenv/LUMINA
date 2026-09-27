@@ -13,10 +13,10 @@ class ConversationMemory:
     def __init__(self, session_id=None):
         self.session_id = session_id or str(uuid.uuid4())
 
-        # Always store sessions relative to the project root.
+        # Project root: LUMINA-lumina-v.1.0.0
         root = Path(__file__).resolve().parents[2]
-        self.memory_dir = root / "data" / "sessions"
 
+        self.memory_dir = root / "data" / "sessions"
         self.memory_file = (
             self.memory_dir / f"{self.session_id}.jsonl"
         )
@@ -27,7 +27,7 @@ class ConversationMemory:
         )
 
     def save_turn(self, prompt, response, metadata=None):
-        """Persist a conversation turn."""
+        """Save one conversation turn to disk."""
 
         turn = {
             "prompt": prompt,
@@ -41,11 +41,15 @@ class ConversationMemory:
             "a",
             encoding="utf-8"
         ) as f:
-            json.dump(turn, f, ensure_ascii=False)
+            json.dump(
+                turn,
+                f,
+                ensure_ascii=False
+            )
             f.write("\n")
 
     def get_context(self, max_turns=5):
-        """Retrieve recent conversation turns."""
+        """Retrieve the most recent conversation turns."""
 
         if not self.memory_file.exists():
             return []
@@ -71,13 +75,13 @@ class ConversationMemory:
         """
         Search this session's conversation history.
 
-        Matches against both user prompts and assistant responses.
+        Searches both user messages and assistant responses.
         """
 
         if not query:
             return []
 
-        query = query.lower().strip()
+        query = str(query).lower().strip()
 
         if not self.memory_file.exists():
             return []
@@ -99,6 +103,7 @@ class ConversationMemory:
 
         results = []
 
+        # Search newest conversations first.
         for turn in reversed(turns):
             prompt = str(turn.get("prompt", ""))
             response = str(turn.get("response", ""))
@@ -115,7 +120,7 @@ class ConversationMemory:
         return results
 
     def get_formatted_context(self, max_turns=3):
-        """Format recent context for model prompt augmentation."""
+        """Format recent conversation history for the model."""
 
         turns = self.get_context(max_turns)
 
@@ -125,29 +130,15 @@ class ConversationMemory:
         parts = []
 
         for turn in turns:
-            parts.append(f"User: {turn['prompt']}")
-            parts.append(f"Assistant: {turn['response']}")
+            parts.append(
+                f"User: {turn.get('prompt', '')}"
+            )
+            parts.append(
+                f"Assistant: {turn.get('response', '')}"
+            )
 
         return "\n".join(parts) + "\n"
 
     def clear_session(self):
-        """Delete this session's memory."""
-
-        if self.memory_file.exists():
-            self.memory_file.unlink()
-
-    @staticmethod
-    def list_all_sessions():
-        """List all available conversation sessions."""
-
-        root = Path(__file__).resolve().parents[2]
-        memory_dir = root / "data" / "sessions"
-
-        if not memory_dir.exists():
-            return []
-
-        return [
-            f.stem
-            for f in memory_dir.glob("*.jsonl")
-        ]
+        """Delete the current
 ```
