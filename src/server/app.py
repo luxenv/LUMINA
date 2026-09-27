@@ -116,22 +116,40 @@ class Handler(BaseHTTPRequestHandler):
             memory = ConversationMemory(session_id)
             
             tool_result = None
+            tool_used = False
+            tool_name = None
+
             if use_tools:
                 tool_router.set_memory(memory)
-                
-                tool_used, tool_result = tool_router.route_and_execute(prompt)
+
+                tool_used, tool_result = (
+                    tool_router.route_and_execute(prompt)
+                )
+
                 if tool_used:
-                    prompt = f"{prompt}\n{tool_router.format_tool_result(tool_router.detect_tool_request(prompt)[0], tool_result)}"
-            
-            context_str = memory.get_formatted_context(max_turns=3)
-            augmented_prompt = f"{context_str}{prompt}"
-            
-            model = get_cached_model()
-            reply = generate(
+                    tool_name, _ = (
+                        tool_router.detect_tool_request(prompt)
+                    )
+
+            if tool_used:
+                reply = str(tool_result)
+
+            else:
+                context_str = memory.get_formatted_context(
+                    max_turns=3
+                )
+
+                augmented_prompt = (
+                    f"{context_str}{prompt}"
+                )
+
+                model = get_cached_model()
+
+                reply = generate(
                     augmented_prompt,
                     180,
                     model=model
-            )
+                )
             
             memory.save_turn(prompt, reply, metadata={
                 "tool_used": tool_result is not None,
