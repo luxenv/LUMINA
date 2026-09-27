@@ -83,12 +83,6 @@ docs/           # Documentation
 scripts/        # Utility scripts
 ```
 
-## Roadmap
-
-**v1.3.0** — Tool integration and application architecture
-
-**v1.4.0** — Memory system
-
 **Future** — Improved natural-language understanding and tool interaction
 
 ## License
