@@ -1,4 +1,3 @@
-```python
 """Tool router for function calling and external actions."""
 
 import ast
@@ -112,4 +111,3 @@ class ToolRouter:
         self.tools = self._init_tools()
 
     def _init_tools(self):
-```
