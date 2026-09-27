@@ -14,11 +14,9 @@ from src.features.feedback.feedback import FeedbackCollector  # noqa: E402
 from src.features.knowledge.kb import KnowledgeBase  # noqa: E402
 from src.features.tools.router import ToolRouter  # noqa: E402
 
-# Global model cache (loaded once at startup)
 _cached_model = None
 _model_lock = Lock()
 
-# Initialize knowledge base and tool router
 kb = KnowledgeBase()
 tool_router = ToolRouter(kb=kb)
 feedback = FeedbackCollector()
@@ -102,7 +100,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404)
     
     def _handle_chat(self):
-        """Handle chat endpoint with memory, tools, and feedback."""
+        
         try:
             size = int(self.headers.get("Content-Length", "0"))
             body = json.loads(self.rfile.read(size).decode())
@@ -115,30 +113,29 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json({"error": "Empty message"}, 400)
                 return
             
-            # Initialize memory for this session
             memory = ConversationMemory(session_id)
             
-            # Try to use tool if available
             tool_result = None
             if use_tools:
                 tool_used, tool_result = tool_router.route_and_execute(prompt)
                 if tool_used:
                     prompt = f"{prompt}\n{tool_router.format_tool_result(tool_router.detect_tool_request(prompt)[0], tool_result)}"
             
-            # Build augmented prompt with recent context
             context_str = memory.get_formatted_context(max_turns=3)
             augmented_prompt = f"{context_str}{prompt}"
             
-            # Generate response
-            reply = generate(augmented_prompt, 180)
+            model = get_cached_model()
+            reply = generate(
+                    augmented_prompt,
+                    180,
+                    model=model
+            )
             
-            # Save to memory
             memory.save_turn(prompt, reply, metadata={
                 "tool_used": tool_result is not None,
                 "tool_result": tool_result
             })
             
-            # Log to knowledge base for analytics
             kb.log_query(prompt, reply, used_kb=tool_result is not None)
             
             self.send_json({
@@ -151,7 +148,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({"error": str(exc)}, 500)
     
     def _handle_feedback(self):
-        """Handle feedback submission for model improvement."""
+        
         try:
             size = int(self.headers.get("Content-Length", "0"))
             body = json.loads(self.rfile.read(size).decode())
@@ -172,7 +169,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({"error": str(exc)}, 500)
     
     def _handle_add_knowledge(self):
-        """Handle knowledge base entry addition."""
+        
         try:
             size = int(self.headers.get("Content-Length", "0"))
             body = json.loads(self.rfile.read(size).decode())
@@ -192,7 +189,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({"error": str(exc)}, 500)
     
     def _handle_search_knowledge(self):
-        """Handle knowledge base search."""
+        
         try:
             size = int(self.headers.get("Content-Length", "0"))
             body = json.loads(self.rfile.read(size).decode())
