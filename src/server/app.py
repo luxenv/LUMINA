@@ -117,6 +117,8 @@ class Handler(BaseHTTPRequestHandler):
             
             tool_result = None
             if use_tools:
+                tool_router.set_memory(memory)
+                
                 tool_used, tool_result = tool_router.route_and_execute(prompt)
                 if tool_used:
                     prompt = f"{prompt}\n{tool_router.format_tool_result(tool_router.detect_tool_request(prompt)[0], tool_result)}"
