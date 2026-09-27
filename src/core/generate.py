@@ -10,7 +10,7 @@ MODEL = ROOT / "model.json"
 def load_model():
     if not MODEL.exists():
         raise SystemExit(
-             "Missing model.json. Run: python -m src.core.train
+             "Missing model.json. Run: python -m src.core.train"
         )
 
     return json.loads(MODEL.read_text(encoding="utf-8"))
